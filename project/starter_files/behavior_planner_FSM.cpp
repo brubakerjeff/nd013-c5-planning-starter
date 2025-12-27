@@ -152,9 +152,9 @@ State BehaviorPlannerFSM::state_transition(const State& ego_state, State goal,
       // LOG(INFO) << "BP- new STOP goal at: " << goal.location.x << ", "
       //          << goal.location.y;
 
-        goal.velocity.x = 0.0;
-        goal.velocity.y = 0.0;
-        goal.velocity.z = 0.0;
+        goal.velocity.x = _speed_limit * cos(goal.rotation.yaw);
+        goal.velocity.y = _speed_limit * sin(goal.rotation.yaw);
+        goal.velocity.z = 0;
 
     } else {
       // TODO-goal speed in nominal state: What should be the goal speed now
