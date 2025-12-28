@@ -89,7 +89,7 @@ double BehaviorPlannerFSM::get_look_ahead_distance(const State& ego_state) {
   float acceleration_z = velocity_u.z * ego_state.acceleration.z;
   
   float total_acc = acceleration_x + acceleration_y + acceleration_z;
-  look_ahead_distance = velocity_mag * time + 0.5 * total_acc * time * time;
+  auto look_ahead_distance = velocity_mag * time + 0.5 * total_acc * time * time;
 
   // LOG(INFO) << "Calculated look_ahead_distance: " << look_ahead_distance;
 
