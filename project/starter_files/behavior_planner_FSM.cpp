@@ -82,9 +82,14 @@ double BehaviorPlannerFSM::get_look_ahead_distance(const State& ego_state) {
   const double comfortable_deceleration = 4.0; // Example value
 
   // Calculate the lookahead distance based on the current speed and deceleration
-  auto look_ahead_distance = (velocity_mag * velocity_mag) / (2 * comfortable_deceleration);
-
-  // auto look_ahead_distance = 1.0;  // <- Fix This
+  float time = _lookahead_time;
+  auto velocity_u = ego_state.velocity/velocity_mag;
+  float acceleration_x = velocity_u.x * ego_state.acceleration.x;
+  float acceleration_y = velocity_u.y * ego_state.acceleration.y;
+  float acceleration_z = velocity_u.z * ego_state.acceleration.z;
+  
+  float total_acc = acceleration_x + acceleration_y + acceleration_z;
+  look_ahead_distance = velocity_mag * time + 0.5 * total_acc * time * time;
 
   // LOG(INFO) << "Calculated look_ahead_distance: " << look_ahead_distance;
 
